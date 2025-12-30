@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "A collection of open source widgets for use in blogs, websites and other tools",
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "main": "dist/index.umd.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
