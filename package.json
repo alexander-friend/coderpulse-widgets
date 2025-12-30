@@ -25,7 +25,8 @@
     "lint": "eslint src",
     "format": "prettier --write \"src/**/*.{ts,css,html,json}\"",
     "prepare": "husky install",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "release": "npm run build && npm publish --provenance --access public"
   },
   "repository": {
     "type": "git",
@@ -47,12 +48,13 @@
   },
   "homepage": "https://github.com/alexander-friend/coderpulse-widgets#readme",
   "dependencies": {
-    "cron-parser": "^4.9.0",
-    "cronstrue": "^2.50.0",
+    "cron-parser": "^5.4.0",
+    "cronstrue": "^3.9.0",
     "lit": "^3.1.2",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
     "@lit/localize-tools": "^0.8.1",
