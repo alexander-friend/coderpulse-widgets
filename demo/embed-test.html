@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Test - CoderPulse Widgets</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            background: #eee;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 40px;
+            margin: 0 auto;
+            border: 2px dashed #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WordPress/Embed Simulation</h1>
+        <p>This page uses the <strong>self-contained UMD bundle</strong>.</p>
+        <hr>
+        
+        <cp-cron-builder></cp-cron-builder>
+
+    </div>
+
+    <!-- For local development with Vite dev server: -->
+    <script type="module" src="/src/embed.ts"></script>
+    
+    <!-- For production/standalone testing (requires npm run build): -->
+    <!-- <script src="../dist/coderpulse-widgets-embed.umd.js"></script> -->
+</body>
+</html>
