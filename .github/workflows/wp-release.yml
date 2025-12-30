@@ -1,0 +1,20 @@
+name: Deploy to WordPress.org
+
+# This workflow requires your plugin to be approved by WordPress.org first.
+# Once approved, you will get an SVN repository.
+# You will need to add your WordPress.org SVN username and password to GitHub Secrets.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: coderpulse-widgets # This must match your WordPress.org slug

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoderPulse Widgets - Demo</title>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+        background-color: #f8f9fa;
+      }
+      h1 {
+        color: #1a73e8;
+      }
+      .component-card {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+      .component-card h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: #3c4043;
+      }
+      .links {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+      }
+      a {
+        color: #1a73e8;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CoderPulse Widgets Demo</h1>
+    <p>
+      These components are loaded using the <strong>Standard Library</strong> (Vite dev server).
+    </p>
+
+    <div class="component-card">
+      <h2>Cron Builder Widget</h2>
+      <cp-cron-builder></cp-cron-builder>
+    </div>
+
+    <div class="links">
+      <a href="demo/embed-test.html">View Embed Test (Standalone UMD Bundle)</a>
+    </div>
+
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>
