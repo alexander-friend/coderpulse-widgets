@@ -1,0 +1,453 @@
+:root {
+  --font-geist: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --bg-color: #0c0c0e;
+  --text-primary: #ededed;
+  --text-secondary: #a1a1a1;
+  --text-muted: #666666;
+  --border-color: #232326;
+  --sidebar-width: 280px;
+  --primary-color: #0069ff;
+  --surface-color: #111113;
+  --surface-hover: #1a1a1c;
+  --max-content-width: 1000px;
+  
+  /* Syntax Highlighting (Highlight.js compatible) */
+  --hljs-bg: #000000;
+  --hljs-text: #d1d1d1;
+  --hljs-keyword: #569cd6;
+  --hljs-string: #ce9178;
+  --hljs-number: #b5cea8;
+  --hljs-attr: #9cdcfe;
+  --hljs-tag: #569cd6;
+  --hljs-name: #569cd6;
+  --hljs-comment: #6a9955;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-geist);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  border-right: 1px solid var(--border-color);
+  padding: 2.5rem 2rem;
+  position: fixed;
+  height: 100vh;
+  background: var(--bg-color);
+  z-index: 10;
+  overflow-y: auto;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    text-decoration: none;
+
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .nav-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+
+      &:hover {
+        color: var(--text-primary);
+        background: var(--surface-hover);
+      }
+
+      &.active {
+        color: var(--primary-color);
+        background: rgba(0, 105, 255, 0.08);
+        border: 1px solid rgba(0, 105, 255, 0.2);
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* Main Content */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 5rem 6.5rem;
+  width: 100%;
+  max-width: var(--max-content-width);
+
+  section {
+    margin-bottom: 5rem;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .hero-p {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    max-width: 800px;
+    line-height: 1.5;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Component Section Layout */
+.component-showcase {
+  margin-top: 3rem;
+  
+  .showcase-tabs {
+    display: flex;
+    gap: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+
+    button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 1rem 0;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+
+      &:hover { color: var(--text-primary); }
+
+      &.active {
+        color: var(--primary-color);
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  .showcase-content {
+    display: none;
+    &.active { display: block; }
+  }
+}
+
+/* Stacked Playground Layout */
+.playground-stacked {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface-color);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.5rem;
+
+  .preview-slot {
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0c0c0e;
+    background-image: 
+      radial-gradient(circle at 1px 1px, #1e1e21 1px, transparent 0);
+    background-size: 24px 24px;
+    min-height: 480px;
+
+    [id^="widget-"] {
+      width: 100%;
+    }
+  }
+
+  .config-bar {
+    border-bottom: 1px solid var(--border-color);
+    background: #0d0d0f;
+    padding: 2.25rem 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2.5rem;
+
+    h3 {
+      grid-column: 1 / -1;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .config-field {
+      label {
+        display: block;
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      select, input[type="text"], input[type="color"] {
+        width: 100%;
+        background: #161618;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        padding: 0.8rem 1rem;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(0, 105, 255, 0.15);
+        }
+      }
+
+      input[type="color"] {
+        height: 46px;
+        padding: 6px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/* Implementation/Usage Styles */
+.implementation-container {
+  .impl-tabs {
+    display: flex;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0;
+
+    button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 1rem 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+
+      &:hover { color: var(--text-primary); }
+
+      &.active {
+        color: var(--primary-color);
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  .impl-content {
+    display: none;
+    &.active { 
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+  }
+}
+
+.showcase-content {
+  &.active {
+    animation: fadeIn 0.3s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.code-window {
+  background: var(--hljs-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  border-top-left-radius: 0; /* Align with active tab */
+  padding: 1.75rem;
+  position: relative;
+  margin-top: 0;
+
+  pre {
+    margin: 0;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #111113;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--text-primary);
+      background: var(--surface-hover);
+    }
+  }
+}
+
+/* Markdown Documentation Styles */
+.markdown-body {
+  h3 { 
+    margin-top: 3.5rem; 
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem; 
+  }
+
+  h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  ul, ol {
+    margin-bottom: 1.5rem;
+  }
+
+  pre {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2.5rem 0;
+    
+    th, td {
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 1rem;
+      text-align: left;
+    }
+
+    th {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    code {
+      background: rgba(0, 105, 255, 0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 0.85em;
+      color: var(--primary-color);
+    }
+  }
+}
+
+/* Syntax Highlighting overrides for HLJS */
+.hljs { display: block; overflow-x: auto; padding: 0.5em; background: var(--hljs-bg); color: var(--hljs-text); }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-section, .hljs-link { color: var(--hljs-keyword); font-weight: 600; }
+.hljs-string, .hljs-doctag, .hljs-regexp { color: var(--hljs-string); }
+.hljs-title, .hljs-name, .hljs-type, .hljs-params { color: var(--hljs-tag); font-weight: 600; }
+.hljs-attribute, .hljs-attr { color: var(--hljs-attr); }
+.hljs-number, .hljs-built_in, .hljs-bullet { color: var(--hljs-number); }
+.hljs-comment, .hljs-quote { color: var(--hljs-comment); font-style: italic; }
+.hljs-meta { color: #808080; }
+.hljs-meta .hljs-keyword { color: #808080; }
+.hljs-meta .hljs-string { color: var(--hljs-string); }
+.hljs-addition { color: #b5cea8; background-color: rgba(181, 206, 168, 0.1); }
+.hljs-deletion { color: #ce9178; background-color: rgba(206, 145, 120, 0.1); }
+
+@media (max-width: 1200px) {
+  .main-content { padding: 4rem; }
+}
+
+@media (max-width: 1024px) {
+  .sidebar { width: 0; display: none; }
+  .main-content { margin-left: 0; padding: 2.5rem; }
+  .playground-stacked .preview-slot { padding: 3rem 2rem; min-height: 400px; }
+  .playground-stacked .config-bar { padding: 1.5rem; grid-template-columns: 1fr 1fr; }
+}

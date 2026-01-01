@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { baseStyles } from '../../styles/theme';
+import { customElement, state, property } from 'lit/decorators.js';
+import { variables, baseStyles } from '../../styles/theme';
 import cronstrue from 'cronstrue';
 import { CronExpressionParser } from 'cron-parser';
 import './CronField';
@@ -24,12 +24,12 @@ export const DEFAULT_CRON: CronState = {
 @customElement('cp-cron-builder')
 export class CpCronBuilder extends LitElement {
   static styles = [
+    variables,
     baseStyles,
     css`
       :host {
         display: block;
-        max-width: 800px;
-        margin: 0 auto;
+        width: 100%; /* Force expansion even inside flex/center parents */
       }
 
       .builder-wrapper {
@@ -57,7 +57,7 @@ export class CpCronBuilder extends LitElement {
       .expression-label {
         font-size: 11px;
         font-weight: 700;
-        color: var(--cp-secondary-text-color);
+        color: var(--cp-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: 4px;
@@ -68,6 +68,7 @@ export class CpCronBuilder extends LitElement {
         font-weight: 600;
         color: var(--cp-primary-color);
         font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        word-break: break-all;
       }
 
       .actions {
@@ -98,13 +99,13 @@ export class CpCronBuilder extends LitElement {
       }
 
       .btn-soft {
-        background: #f0f4f8;
-        color: var(--cp-secondary-text-color);
+        background: var(--cp-surface-3);
+        color: var(--cp-text-secondary);
         border-color: var(--cp-border-color);
       }
 
       .btn-soft:hover {
-        background: #e1e8ef;
+        background: var(--cp-border-hover);
       }
 
       .results-grid {
@@ -128,14 +129,18 @@ export class CpCronBuilder extends LitElement {
       .result-label {
         font-size: 11px;
         font-weight: 700;
-        color: var(--cp-secondary-text-color);
+        color: var(--cp-text-muted);
         text-transform: uppercase;
       }
 
       .human-readable {
         font-size: 16px;
         line-height: 1.5;
-        color: var(--cp-text-color);
+        color: var(--cp-text-primary);
+      }
+
+      .human-readable.error {
+        color: var(--cp-error-color);
       }
 
       .next-runs {
@@ -146,7 +151,7 @@ export class CpCronBuilder extends LitElement {
 
       .run-time {
         font-size: 13px;
-        color: var(--cp-secondary-text-color);
+        color: var(--cp-text-secondary);
         font-family: monospace;
       }
 
@@ -162,7 +167,7 @@ export class CpCronBuilder extends LitElement {
         padding: 12px 20px;
         font-size: 14px;
         font-weight: 600;
-        color: var(--cp-secondary-text-color);
+        color: var(--cp-text-secondary);
         cursor: pointer;
         border-bottom: 2px solid transparent;
         white-space: nowrap;
@@ -174,14 +179,33 @@ export class CpCronBuilder extends LitElement {
       }
 
       .tab:hover:not([active]) {
-        color: var(--cp-text-color);
+        color: var(--cp-text-primary);
       }
 
       .field-editor {
         padding: var(--cp-spacing-small);
+        background: inherit;
       }
     `
   ];
+
+  @property({ type: String, reflect: true })
+  theme: 'light' | 'dark' | 'auto' = 'auto';
+
+  @property({ type: String, attribute: 'primary-color' })
+  primaryColor?: string;
+
+  updated(changedProperties: Map<string, any>) {
+    if (changedProperties.has('primaryColor') && this.primaryColor) {
+      this.style.setProperty('--cp-primary-color', this.primaryColor);
+      // Simple logic to generate a slightly darker hover color if not provided
+      if (!this.style.getPropertyValue('--cp-primary-hover')) {
+        // This is a naive implementation, but works for most hex colors
+        // For a more robust version, we'd use a color library
+        this.style.setProperty('--cp-primary-hover', this.primaryColor + 'ee');
+      }
+    }
+  }
 
   @state()
   private _cronState: CronState = { ...DEFAULT_CRON };
@@ -246,7 +270,7 @@ export class CpCronBuilder extends LitElement {
       <div class="results-grid">
         <div class="result-section">
           <div class="result-label">Human Readable</div>
-          <div class="human-readable" style="${error ? 'color: #d93025;' : ''}">
+          <div class="human-readable ${error ? 'error' : ''}">
             ${description}
           </div>
         </div>
@@ -265,7 +289,7 @@ export class CpCronBuilder extends LitElement {
   render() {
     return html`
       <div class="builder-wrapper">
-        <div class="cp-card">
+        <div class="cp-card" style="padding: var(--cp-card-padding, var(--cp-spacing-large));">
           <div class="expression-header">
             <div class="expression-container">
               <div class="expression-label">Cron Expression</div>
@@ -281,7 +305,7 @@ export class CpCronBuilder extends LitElement {
           ${this._renderResults()}
         </div>
 
-        <div class="cp-card">
+        <div class="cp-card" style="padding: var(--cp-card-padding, var(--cp-spacing-large));">
           <div class="tabs">
             <div
               class="tab"
@@ -377,6 +401,7 @@ export class CpCronBuilder extends LitElement {
         .range=${config.range}
         .label=${config.label}
         .names=${config.names}
+        .theme=${this.theme}
         @field-change=${this._handleFieldChange}
       ></cp-cron-field>
     `;
