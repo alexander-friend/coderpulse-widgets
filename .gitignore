@@ -1,5 +1,6 @@
 node_modules
 dist
+dist-demo
 .DS_Store
 *.log
 .env
@@ -10,3 +11,4 @@ dist
 .agent/secrets
 *.zip
 .vite
+*.code-workspace

@@ -1,20 +1,23 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { baseStyles } from '../../styles/theme';
+import { variables, baseStyles } from '../../styles/theme';
 
 @customElement('cp-cron-field')
 export class CpCronField extends LitElement {
   static styles = [
+    variables,
     baseStyles,
     css`
       :host {
         display: block;
+        background: transparent !important;
       }
 
       .field-container {
         display: flex;
         flex-direction: column;
         gap: var(--cp-spacing-medium);
+        background: transparent;
       }
 
       .radio-group {
@@ -29,11 +32,13 @@ export class CpCronField extends LitElement {
         gap: 8px;
         font-size: 14px;
         cursor: pointer;
+        color: var(--cp-text-primary);
       }
 
       input[type='radio'] {
         margin: 0;
         cursor: pointer;
+        accent-color: var(--cp-primary-color);
       }
 
       input[type='number'] {
@@ -42,11 +47,19 @@ export class CpCronField extends LitElement {
         border: 1px solid var(--cp-border-color);
         border-radius: 4px;
         font-size: 13px;
-        color: var(--cp-text-color);
+        color: var(--cp-text-primary);
+        background: var(--cp-surface-1);
+        transition: border-color 0.2s;
+      }
+
+      input[type='number']:focus {
+        outline: none;
+        border-color: var(--cp-primary-color);
       }
 
       input[type='number']:disabled {
-        background-color: #f5f7f9;
+        background-color: var(--cp-surface-2);
+        color: var(--cp-text-muted);
         cursor: not-allowed;
       }
 
@@ -72,20 +85,24 @@ export class CpCronField extends LitElement {
         padding: 6px;
         border-radius: 4px;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: background-color 0.2s, color 0.2s;
+        color: var(--cp-text-secondary);
       }
 
       .grid-item:hover {
-        background-color: #f0f4f8;
+        background-color: var(--cp-surface-3);
+        color: var(--cp-text-primary);
       }
 
       .grid-item input {
         margin: 0;
         cursor: pointer;
+        accent-color: var(--cp-primary-color);
       }
     `
   ];
 
+  @property({ type: String, reflect: true }) theme: 'light' | 'dark' | 'auto' = 'auto';
   @property({ type: String }) field = '';
   @property({ type: String }) value = '*';
   @property({ type: Object }) range = { min: 0, max: 0 };
