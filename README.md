@@ -6,7 +6,9 @@ A collection of open source widgets and components for the CoderPulse ecosystem.
 
 **CoderPulse Widgets** is a collection of high-performance, open-source UI components built by the team at [CoderPulse](https://coderpulse.io/?utm_source=github&utm_medium=readme&utm_campaign=widgets).
 
-Our goal is to provide developers with premium, drop-in widgets that just work. Available as an **NPM package** for modern apps, and a **WordPress Plugin** for content sites.
+Our goal is to provide developers with premium, drop-in widgets that just work. Available as an **NPM package** for modern apps and via **CDN** for easy embedding in any site.
+
+**[🚀 Try the Live Demo](https://alexander-friend.github.io/coderpulse-widgets/)**
 
 Checks out our full suite of developer tools:
 
@@ -43,25 +45,55 @@ A visual cron expression generator and explainer.
 - "Copy to Clipboard" functionality.
 - Mobile responsive.
 
-**Usage:**
+### Usage
+
+<details>
+<summary><b>NPM / ESM</b></summary>
+
+```javascript
+import 'coderpulse-widgets';
+```
+
+</details>
+
+<details>
+<summary><b>Script Tag / CDN</b></summary>
 
 ```html
-<script type="module">
-  import 'coderpulse-widgets';
-</script>
+<script src="https://unpkg.com/coderpulse-widgets/dist/coderpulse-widgets-embed.umd.js"></script>
+```
 
+</details>
+
+Then use the widget in your HTML:
+
+```html
 <cp-cron-builder></cp-cron-builder>
 ```
 
-## Getting Started
+## Installation
 
-### Installation
+<details>
+<summary><b>NPM</b></summary>
 
 ```bash
-npm install
+npm install coderpulse-widgets
 ```
 
-### Development
+</details>
+
+<details>
+<summary><b>CDN</b></summary>
+
+Include the following script tag in your `<head>` or before the closing `</body>` tag:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/coderpulse-widgets/dist/coderpulse-widgets-embed.umd.js"></script>
+```
+
+</details>
+
+## Development
 
 ```bash
 npm run dev

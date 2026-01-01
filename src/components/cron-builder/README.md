@@ -34,22 +34,55 @@ Perfect for static sites or simple HTML pages. This file is served automatically
 
 ### WordPress
 
-For WordPress sites, we recommend using our **official plugin** (located in the `wordpress/` directory of this repo) for the best experience, including Gutenberg support.
+To use the Cron Builder in WordPress, you can use the **Custom HTML** block and include the CDN script along with the widget tag:
+
+```html
+<!-- Include the script (ideally in your theme's header or footer) -->
+<script src="https://cdn.jsdelivr.net/npm/coderpulse-widgets@latest/dist/coderpulse-widgets-embed.umd.js"></script>
+
+<!-- Add the widget in a Custom HTML block -->
+<cp-cron-builder></cp-cron-builder>
+```
 
 ## API
 
-| Property | Attribute | Type | Default | Description                                                                            |
-| -------- | --------- | ---- | ------- | -------------------------------------------------------------------------------------- |
-| -        | -         | -    | -       | This component is currently state-internal and effectively stateless from the outside. |
+### Properties
 
-## Theming
+| Property       | Attribute       | Type                          | Default     | Description                                                                             |
+| -------------- | --------------- | ----------------------------- | ----------- | --------------------------------------------------------------------------------------- |
+| `theme`        | `theme`         | `'light' \| 'dark' \| 'auto'` | `'auto'`    | Theme mode for the component. Auto will respect system preferences.                     |
+| `primaryColor` | `primary-color` | `string`                      | `undefined` | Custom primary color (hex, rgb, or named CSS color). Overrides the default theme color. |
 
-Uses CSS variables for customization:
+### CSS Variables
+
+The component uses CSS variables for advanced theming. These can be customized by setting them on `:root` or directly on the component:
+
+| Variable              | Default         | Description                                                       |
+| --------------------- | --------------- | ----------------------------------------------------------------- |
+| `--cp-primary-color`  | `#0088cc`       | Primary accent color used for highlights and interactive elements |
+| `--cp-primary-hover`  | Computed        | Hover state for primary color                                     |
+| `--cp-text-color`     | Theme-dependent | Main text color                                                   |
+| `--cp-text-secondary` | Theme-dependent | Secondary text color                                              |
+| `--cp-text-muted`     | Theme-dependent | Muted text for labels                                             |
+| `--cp-border-color`   | Theme-dependent | Border and divider color                                          |
+| `--cp-border-radius`  | `8px`           | Border radius for cards and buttons                               |
+| `--cp-spacing-small`  | `8px`           | Small spacing unit                                                |
+| `--cp-spacing-medium` | `16px`          | Medium spacing unit                                               |
+| `--cp-spacing-large`  | `24px`          | Large spacing unit                                                |
+
+**Example:**
 
 ```css
-:root {
-  --cp-primary-color: #0088cc;
-  --cp-text-color: #333;
-  --cp-border-radius: 8px;
+cp-cron-builder {
+  --cp-primary-color: #ff6b35;
+  --cp-border-radius: 12px;
 }
 ```
+
+### Events
+
+This component does not currently emit any custom events. The cron expression is managed internally and can be copied via the built-in "Copy" button.
+
+### Methods
+
+This component does not expose any public methods. All interactions are handled through the visual interface.
